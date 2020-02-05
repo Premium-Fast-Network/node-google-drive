@@ -24,6 +24,48 @@ Simple Interaction to Google Drive using NodeJS + Promises
 - Upload Multiple Files (Chunk)
 - Download Files
 
+## Best Practise How to Use Nested Function
+
+- This example will explain how to generate a new token and continue to next request function
+- We can define multiple function in one way.
+- In first time we set a user token, then we make a function for check quota, then all of this will execute after we refresh a token manually.
+
+```javascript
+const gd = new GoogleDrive({
+    clientId: credentials.clientId,
+    clientSecret: credentials.clientSecret,
+    scopes: credentials.scopes
+})
+
+// set user token
+const setToken = gd.setToken(credentials.user)
+
+// check quota
+const quota = () => {
+    gd.checkQuota()
+    .then((res) => {
+        // your function for save new quota to database
+        console.log(res.data)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
+
+// refresh token manual
+const refresh = gd.refreshToken()
+
+refresh.then((res) => {
+    gd.setToken(res.data)
+})
+.then(() => {
+    quota()
+})
+.catch((err) => {
+    console.log(err)
+})
+```
+
 ## INFO
 * By: Juni Yadi @ Premium Fast Network
 * License: MIT 
