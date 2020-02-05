@@ -30,8 +30,10 @@ class GoogleDrive {
     }
 
     // function verify token from oauth url
-    verifyToken(token) {
+    verifyToken(code) {
+        const { tokens } = this.oauth2Client.getToken(code)
 
+        return tokens
     }
 }
 
