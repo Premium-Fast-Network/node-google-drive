@@ -111,6 +111,8 @@ class GoogleDrive {
         return axios.get(buildUrl)
     }
 
+    // function lists files
+    // docs: https://developers.google.com/drive/api/v3/reference/files/list
     listFiles(query) {
         let params = {
             pageSize: 1000,
