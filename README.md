@@ -8,6 +8,16 @@ Simple Interaction to Google Drive using NodeJS + Promises
 
 # Documentation
 
+## Installation
+- NPM
+```bash
+npm i @premiumfastnet/google-drive
+```
+- Yarn
+```bash
+yarn add @premiumfastnet/google-drive
+```
+
 ## Feature and Example Code
 - [Setup Credentials API](example/credentials.sample.js) (Rename `credentials.sample.js` to `credentials.js`)
 - [Generate Auth Url](example/authUrl.js)
@@ -15,14 +25,15 @@ Simple Interaction to Google Drive using NodeJS + Promises
 - [Set and Get Token (User)](example/setToken.js)
 - [Refresh Token Manually (User)](example/setToken.js)
 - [Check Quota (User)](example/checkQuota.js)
+- [List Files (User)](example/listFiles.js)
 
 ## To-DO
-- Get Detail Disk Quota
-- Get List Files
-- Get Files Information
-- Upload Single Files
-- Upload Multiple Files (Chunk)
-- Download Files
+- [x] Get Detail Disk Quota
+- [x] Get List Files
+- [ ] Get Files Information
+- [ ] Upload Single Files
+- [ ] Upload Multiple Files (Chunk)
+- [ ] Download Files
 
 ## Best Practise How to Use Nested Function
 
