@@ -27,16 +27,17 @@ yarn add @premiumfastnet/google-drive
 - [Check Quota (User)](example/checkQuota.js)
 - [List Files (User)](example/listFiles.js)
 - [Get, Copy, Delete Files and Empty Trash (User)](example/files.js)
+- [Share Files to Email (Private) or Public](example/share.js)
 
 ## To-DO
 - [x] Get Detail Disk Quota
 - [x] Get List Files
 - [x] Get, Copy, Delete Files
 - [x] Empty Trash
+- [x] Share Files to Email (Private) or Public
 - [ ] Upload Single Files
 - [ ] Upload Multiple Files (Chunk)
 - [ ] Download Files
-- [ ] Share Files to Email (Private) or Public
 
 ## Best Practise How to Use Nested Function
 
