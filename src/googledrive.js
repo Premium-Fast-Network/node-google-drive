@@ -174,6 +174,17 @@ class GoogleDrive {
             }
         })
     }
+
+    // function create new folder
+    createDir(name, parents) {
+        return this.drive.files.create({
+            requestBody: {
+                mimeType: 'application/vnd.google-apps.folder',
+                name: name,
+                parents: parents ? parents : null
+            }
+        })
+    }
 }
 
 module.exports = GoogleDrive
