@@ -1,6 +1,6 @@
 {
   "name": "@premiumfastnet/google-drive",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "main": "src/googledrive.js",
   "repository": {
     "type": "git",
