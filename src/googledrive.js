@@ -231,6 +231,16 @@ class GoogleDrive {
         bar.stop()
         return res
     }
+
+    // function download files
+    downloadFile(id) {
+        return this.drive.files.get({
+            fileId: id,
+            alt: 'media'
+        }, {
+            responseType: 'stream'
+        })
+    }
 }
 
 module.exports = GoogleDrive
