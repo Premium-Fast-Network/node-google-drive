@@ -1,5 +1,6 @@
 const axios = require('axios')
 const { google } = require('googleapis')
+const apiUrl = require('./url')
 
 class GoogleDrive {
     constructor({
@@ -19,6 +20,9 @@ class GoogleDrive {
             this.clientSecret,
             this.redirect
         )
+
+        // inject default url api list
+        this.gdApiUrl = apiUrl
     }
 
     // function generate oauth url with refresh_token
@@ -39,6 +43,41 @@ class GoogleDrive {
             } else {
                 reject('failed to validate token')
             }
+        })
+    }
+
+
+    // function set user token
+    setToken({
+        access_token,
+        refresh_token,
+        expiry_date
+    }) {
+        this._accessToken    = access_token
+        this._refreshToken   = refresh_token
+        this._expiryDate     = expiry_date
+
+        return this.getToken()
+    }
+
+    // function get user token
+    getToken() {
+        const dataToken = {
+            access_token: this._accessToken,
+            refresh_token: this._refreshToken,
+            expiry_date: this._expiryDate
+        }
+
+        return dataToken
+    }
+
+    // function manually refresh token
+    refreshToken() {
+        return axios.post(this.gdApiUrl.refreshToken, {
+            client_id: this.clientId,
+            client_secret: this.clientSecret,
+            refresh_token: this._refreshToken,
+            grant_type: 'refresh_token'
         })
     }
 }
