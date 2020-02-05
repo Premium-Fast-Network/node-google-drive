@@ -10,7 +10,7 @@ const gd = new GoogleDrive({
 // set user token
 const setToken = gd.setToken(credentials.user)
 
-// refresh token manual
+// check user quota
 const quota = gd.checkQuota()
 
 quota.then((res) => {
