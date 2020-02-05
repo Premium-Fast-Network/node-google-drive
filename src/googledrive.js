@@ -1,6 +1,8 @@
 const axios = require('axios')
 const { google } = require('googleapis')
 const apiUrl = require('./url')
+const cliProgress = require('cli-progress')
+const byteHuman = require('pretty-bytes')
 
 class GoogleDrive {
     constructor({
@@ -184,6 +186,50 @@ class GoogleDrive {
                 parents: parents ? parents : null
             }
         })
+    }
+
+    // function upload files promise
+    uploadFile(name, stream, mimeType) {
+        return this.drive.files.create({
+            requestBody: {
+                name: name,
+                mimeType: mimeType
+            },
+            media: {
+                mimeType: mimeType,
+                body: stream
+            },
+        })
+    }
+
+    // function upload files with cli-progress
+    async uploadFileProgress(name, stream, mimeType, fileSize) {
+
+        console.log('Upload Files: ' + name + ' (' + byteHuman(fileSize) + ')')
+
+        const bar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic)
+        bar.start(fileSize, 0)
+
+        const res = await this.drive.files.create(
+            {
+                requestBody: {
+                    name: name,
+                    mimeType: mimeType
+                },
+                media: {
+                    mimeType: mimeType,
+                    body: stream
+                },
+            },
+            {
+                onUploadProgress: evt => {
+                    bar.update(evt.bytesRead)
+                }
+            }
+        )
+
+        bar.stop()
+        return res
     }
 }
 
