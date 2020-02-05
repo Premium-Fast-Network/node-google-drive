@@ -38,7 +38,7 @@ class GoogleDrive {
         return new Promise((resolve, reject) => {
             const token = this.oauth2Client.getToken(code)
 
-            if(token) {
+            if (token) {
                 resolve(token)
             } else {
                 reject('failed to validate token')
@@ -53,9 +53,9 @@ class GoogleDrive {
         refresh_token,
         expiry_date
     }) {
-        this._accessToken    = access_token
-        this._refreshToken   = refresh_token
-        this._expiryDate     = expiry_date
+        this._accessToken = access_token
+        this._refreshToken = refresh_token
+        this._expiryDate = expiry_date
 
         return this.getToken()
     }
