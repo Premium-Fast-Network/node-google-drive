@@ -1,0 +1,22 @@
+{
+  "name": "@premiumfastnet/google-drive",
+  "version": "1.0.0",
+  "main": "src/googledrive.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Premium-Fast-Network/node-google-drive.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Premium-Fast-Network/node-google-drive/issues"
+  },
+  "homepage": "https://github.com/Premium-Fast-Network/node-google-drive#readme",
+  "author": "Premium Fast Network <cs@premiumfast.net>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "googleapis": "^47.0.0"
+  },
+  "scripts": {
+    "test": "echo \"No test specified\""
+  }
+}
