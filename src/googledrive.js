@@ -128,13 +128,13 @@ class GoogleDrive {
     // function get files by id
     // docs: https://developers.google.com/drive/api/v3/reference/files/get
     getFiles(id) {
-        return this.drive.files.get({fileId: id})
+        return this.drive.files.get({ fileId: id })
     }
 
     // function delete files by id
     // docs: https://developers.google.com/drive/api/v3/reference/files/delete
     deleteFiles(id) {
-        return this.drive.files.delete({fileId: id})
+        return this.drive.files.delete({ fileId: id })
     }
 
     // function copy files by id
@@ -147,6 +147,32 @@ class GoogleDrive {
     // docs: https://developers.google.com/drive/api/v3/reference/files/emptyTrash
     emptyTrash() {
         return this.drive.files.emptyTrash()
+    }
+
+    // function share file private by email
+    // docs: https://developers.google.com/drive/api/v3/reference/permissions/create
+    shareToEmail(id, email) {
+        return this.drive.permissions.create({
+            fileId: id,
+            sendNotificationEmail: true,
+            requestBody: {
+                emailAddress: email,
+                role: 'reader',
+                type: 'user'
+            }
+        })
+    }
+
+    // function share file to public
+    // docs: https://developers.google.com/drive/api/v3/reference/permissions/create
+    shareToPublic(id) {
+        return this.drive.permissions.create({
+            fileId: id,
+            requestBody: {
+                role: 'reader',
+                type: 'anyone'
+            }
+        })
     }
 }
 
