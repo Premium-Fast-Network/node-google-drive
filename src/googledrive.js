@@ -124,6 +124,30 @@ class GoogleDrive {
 
         return this.drive.files.list(params)
     }
+
+    // function get files by id
+    // docs: https://developers.google.com/drive/api/v3/reference/files/get
+    getFiles(id) {
+        return this.drive.files.get({fileId: id})
+    }
+
+    // function delete files by id
+    // docs: https://developers.google.com/drive/api/v3/reference/files/delete
+    deleteFiles(id) {
+        return this.drive.files.delete({fileId: id})
+    }
+
+    // function copy files by id
+    // docs: https://developers.google.com/drive/api/v3/reference/files/copy
+    copyFiles(query) {
+        return this.drive.files.copy(query)
+    }
+
+    // function empty trash
+    // docs: https://developers.google.com/drive/api/v3/reference/files/emptyTrash
+    emptyTrash() {
+        return this.drive.files.emptyTrash()
+    }
 }
 
 module.exports = GoogleDrive
