@@ -31,9 +31,15 @@ class GoogleDrive {
 
     // function verify token from oauth url
     verifyToken(code) {
-        const { tokens } = this.oauth2Client.getToken(code)
+        return new Promise((resolve, reject) => {
+            const token = this.oauth2Client.getToken(code)
 
-        return tokens
+            if(token) {
+                resolve(token)
+            } else {
+                reject('failed to validate token')
+            }
+        })
     }
 }
 
