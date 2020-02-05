@@ -51,22 +51,34 @@ class GoogleDrive {
     setToken({
         access_token,
         refresh_token,
-        expiry_date
+        id_token,
+        expiry_date,
+        token_type
     }) {
-        this._accessToken = access_token
-        this._refreshToken = refresh_token
-        this._expiryDate = expiry_date
+        this._accessToken = access_token ? access_token : null
+        this._refreshToken = refresh_token ? refresh_token : null
+        this._idToken = id_token ? id_token : null
+        this._expiryDate = expiry_date ? expiry_date : null
+        this._tokenType = token_type ? token_type : null
+
+        this.oauth2Client.setCredentials(this.getToken())
+
+        this.drive = google.drive({
+            version: "v3",
+            auth: this.oauth2Client
+        })
 
         return this.getToken()
     }
 
     // function get user token
     getToken() {
-        const dataToken = {
-            access_token: this._accessToken,
-            refresh_token: this._refreshToken,
-            expiry_date: this._expiryDate
-        }
+        const dataToken = {}
+        dataToken.access_token = this._accessToken
+        dataToken.refresh_token = this._refreshToken
+        dataToken.id_token = this._idToken
+        dataToken.expiry_date = this._expiryDate
+        dataToken.token_type = this._tokenType
 
         return dataToken
     }
@@ -88,6 +100,18 @@ class GoogleDrive {
         const buildUrl = this.gdApiUrl.about + '?fields=' + queryEncode + '&access_token=' + this._accessToken
 
         return axios.get(buildUrl)
+    }
+
+    listFiles(query) {
+        let params = {
+            pageSize: 1000,
+        }
+
+        if (query) {
+            params = query
+        }
+
+        return this.drive.files.list(params)
     }
 }
 
