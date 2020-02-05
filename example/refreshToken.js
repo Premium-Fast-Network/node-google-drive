@@ -16,7 +16,7 @@ const refresh = gd.refreshToken()
 refresh.then((res) => {
     // your function for save new token to database
 
-    console.log(res.data)
+    console.log(res)
 })
 .catch((err) => {
     console.log(err)
