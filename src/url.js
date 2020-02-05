@@ -1,6 +1,8 @@
+const GoogleDriveApiV3 = 'https://www.googleapis.com/drive/v3/'
+
 const GoogleApiDriveUrl = {
-    index: '',
-    refreshToken: 'https://www.googleapis.com/oauth2/v4/token'
+    refreshToken: 'https://www.googleapis.com/oauth2/v4/token',
+    about: GoogleDriveApiV3 + 'about'
 }
 
 module.exports = GoogleApiDriveUrl
