@@ -29,6 +29,8 @@ yarn add @premiumfastnet/google-drive
 - [Get, Copy, Delete Files and Empty Trash (User)](example/files.js)
 - [Share Files to Email (Private) or Public](example/share.js)
 - [Create and Delete Directory](example/dir.js)
+- [Upload Single File With Progress Progress Bar](example/uploadFile.js)
+- [Download Files With Progress](example/downloadFile.js)
 
 ## To-DO
 - [x] Get Detail Disk Quota
@@ -37,9 +39,8 @@ yarn add @premiumfastnet/google-drive
 - [x] Empty Trash
 - [x] Share Files to Email (Private) or Public
 - [x] Create and Delete Directory
-- [ ] Upload Single Files
-- [ ] Upload Multiple Files (Chunk)
-- [ ] Download Files
+- [x] Upload Single File With Progress Bar
+- [x] Download Files With Progress
 
 ## Best Practise How to Use Nested Function
 
