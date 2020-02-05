@@ -8,10 +8,13 @@ Simple Interaction to Google Drive using NodeJS + Promises
 
 # Documentation
 
-## Example Code
+## Feature and Example Code
 - [Setup Credentials API](example/credentials.sample.js) (Rename `credentials.sample.js` to `credentials.js`)
 - [Generate Auth Url](example/authUrl.js)
 - [Validate Auth Code](example/authUrl.js)
+- [Set and Get Token (User)](example/setToken.js)
+- [Refresh Token Manually (User)](example/setToken.js)
+- [Check Quota (User)](example/checkQuota.js)
 
 ## To-DO
 - Get Detail Disk Quota
@@ -22,5 +25,5 @@ Simple Interaction to Google Drive using NodeJS + Promises
 - Download Files
 
 ## INFO
-* By: Juni Yadi
+* By: Juni Yadi @ Premium Fast Network
 * License: MIT 
