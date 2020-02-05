@@ -8,7 +8,9 @@ const credentials = {
     user: {
         access_token: '',
         refresh_token: '',
-        expiry_date: ''
+        id_token: '',
+        expiry_date: '',
+        token_type: '',
     }
 }
 
