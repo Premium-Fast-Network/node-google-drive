@@ -14,7 +14,7 @@ const setToken = gd.setToken(credentials.user)
 const refresh = gd.refreshToken()
 
 refresh.then((res) => {
-    // you're function for save new token to database to database
+    // you're function for save new token to database
 
     console.log(res.data)
 })
