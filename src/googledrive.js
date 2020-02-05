@@ -46,7 +46,6 @@ class GoogleDrive {
         })
     }
 
-
     // function set user token
     setToken({
         access_token,
@@ -83,14 +82,24 @@ class GoogleDrive {
         return dataToken
     }
 
-    // function manually refresh token
+    // function manually refresh token using axios
+    // refreshToken() {
+    //     return axios.post(this.gdApiUrl.refreshToken, {
+    //         client_id: this.clientId,
+    //         client_secret: this.clientSecret,
+    //         refresh_token: this._refreshToken,
+    //         grant_type: 'refresh_token'
+    //     })
+    // }
+
+    // function refresh token from google oauth2Client
     refreshToken() {
-        return axios.post(this.gdApiUrl.refreshToken, {
-            client_id: this.clientId,
-            client_secret: this.clientSecret,
-            refresh_token: this._refreshToken,
-            grant_type: 'refresh_token'
-        })
+        return this.oauth2Client.refreshAccessToken();
+    }
+
+    // function get live token now from google oauth2Client
+    getAccessToken() {
+        return this.oauth2Client.getAccessToken();
     }
 
     // function check user Quota
