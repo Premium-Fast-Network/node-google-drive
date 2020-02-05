@@ -80,6 +80,15 @@ class GoogleDrive {
             grant_type: 'refresh_token'
         })
     }
+
+    // function check user Quota
+    checkQuota() {
+        const queryEncode = encodeURIComponent('kind,storageQuota,user,maxUploadSize,maxImportSizes')
+
+        const buildUrl = this.gdApiUrl.about + '?fields=' + queryEncode + '&access_token=' + this._accessToken
+
+        return axios.get(buildUrl)
+    }
 }
 
 module.exports = GoogleDrive
