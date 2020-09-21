@@ -11,7 +11,7 @@ const credentials = {
         id_token: '',
         expiry_date: '',
         token_type: '',
-    }
-}
+    },
+};
 
-module.exports = credentials
+module.exports = credentials;

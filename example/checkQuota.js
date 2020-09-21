@@ -1,23 +1,24 @@
-const GoogleDrive = require('../src/googledrive')
-const credentials = require('./credentials')
+const GoogleDrive = require('../src/googledrive');
+const credentials = require('./credentials');
 
 const gd = new GoogleDrive({
     clientId: credentials.clientId,
     clientSecret: credentials.clientSecret,
-    scopes: credentials.scopes
-})
+    scopes: credentials.scopes,
+});
 
 // set user token
-const setToken = gd.setToken(credentials.user)
+const setToken = gd.setToken(credentials.user);
 
 // check user quota
-const quota = gd.checkQuota()
+const quota = gd.checkQuota();
 
-quota.then((res) => {
-    // your function for save new quota to database
+quota
+    .then((res) => {
+        // your function for save new quota to database
 
-    console.log(res.data)
-})
-.catch((err) => {
-    console.log(err)
-})
+        console.log(res.data);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
