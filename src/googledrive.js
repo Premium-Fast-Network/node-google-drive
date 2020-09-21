@@ -1,51 +1,47 @@
-const axios = require('axios')
-const { google } = require('googleapis')
-const apiUrl = require('./url')
-const cliProgress = require('cli-progress')
-const byteHuman = require('pretty-bytes')
+const axios = require('axios');
+const { google } = require('googleapis');
+const apiUrl = require('./url');
+const cliProgress = require('cli-progress');
+const byteHuman = require('pretty-bytes');
+const { refreshToken } = require('./url');
 
 class GoogleDrive {
-    constructor({
-        clientId,
-        clientSecret,
-        scopes,
-        redirect
-    }) {
-        this.clientId = clientId
-        this.clientSecret = clientSecret
-        this.scopes = scopes
-        this.redirect = redirect ? redirect : 'urn:ietf:wg:oauth:2.0:oob'
+    constructor({ clientId, clientSecret, scopes, redirect }) {
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+        this.scopes = scopes;
+        this.redirect = redirect ? redirect : 'urn:ietf:wg:oauth:2.0:oob';
 
         // inject google oauth to constructor
         this.oauth2Client = new google.auth.OAuth2(
             this.clientId,
             this.clientSecret,
-            this.redirect
-        )
+            this.redirect,
+        );
 
         // inject default url api list
-        this.gdApiUrl = apiUrl
+        this.gdApiUrl = apiUrl;
     }
 
     // function generate oauth url with refresh_token
     authUrl() {
         return this.oauth2Client.generateAuthUrl({
             access_type: 'offline',
-            scope: this.scopes
-        })
+            scope: this.scopes,
+        });
     }
 
     // function verify token from oauth url
     verifyToken(code) {
         return new Promise((resolve, reject) => {
-            const token = this.oauth2Client.getToken(code)
+            const token = this.oauth2Client.getToken(code);
 
             if (token) {
-                resolve(token)
+                resolve(token);
             } else {
-                reject('failed to validate token')
+                reject('failed to validate token');
             }
-        })
+        });
     }
 
     // function set user token
@@ -54,34 +50,34 @@ class GoogleDrive {
         refresh_token,
         id_token,
         expiry_date,
-        token_type
+        token_type,
     }) {
-        this._accessToken = access_token ? access_token : null
-        this._refreshToken = refresh_token ? refresh_token : null
-        this._idToken = id_token ? id_token : null
-        this._expiryDate = expiry_date ? expiry_date : null
-        this._tokenType = token_type ? token_type : null
+        this._accessToken = access_token ? access_token : null;
+        this._refreshToken = refresh_token ? refresh_token : null;
+        this._idToken = id_token ? id_token : null;
+        this._expiryDate = expiry_date ? expiry_date : null;
+        this._tokenType = token_type ? token_type : null;
 
-        this.oauth2Client.setCredentials(this.getToken())
+        this.oauth2Client.setCredentials(this.getToken());
 
         this.drive = google.drive({
-            version: "v3",
-            auth: this.oauth2Client
-        })
+            version: 'v3',
+            auth: this.oauth2Client,
+        });
 
-        return this.getToken()
+        return this.getToken();
     }
 
     // function get user token
     getToken() {
-        const dataToken = {}
-        dataToken.access_token = this._accessToken
-        dataToken.refresh_token = this._refreshToken
-        dataToken.id_token = this._idToken
-        dataToken.expiry_date = this._expiryDate
-        dataToken.token_type = this._tokenType
+        const dataToken = {};
+        dataToken.access_token = this._accessToken;
+        dataToken.refresh_token = this._refreshToken;
+        dataToken.id_token = this._idToken;
+        dataToken.expiry_date = this._expiryDate;
+        dataToken.token_type = this._tokenType;
 
-        return dataToken
+        return dataToken;
     }
 
     // function manually refresh token using axios
@@ -96,7 +92,7 @@ class GoogleDrive {
 
     // function refresh token from google oauth2Client
     refreshToken() {
-        return this.oauth2Client.refreshAccessToken();
+        return this.oauth2Client.refreshToken(this._refreshToken);
     }
 
     // function get live token now from google oauth2Client
@@ -106,11 +102,18 @@ class GoogleDrive {
 
     // function check user Quota
     checkQuota() {
-        const queryEncode = encodeURIComponent('kind,storageQuota,user,maxUploadSize,maxImportSizes')
+        const queryEncode = encodeURIComponent(
+            'kind,storageQuota,user,maxUploadSize,maxImportSizes',
+        );
 
-        const buildUrl = this.gdApiUrl.about + '?fields=' + queryEncode + '&access_token=' + this._accessToken
+        const buildUrl =
+            this.gdApiUrl.about +
+            '?fields=' +
+            queryEncode +
+            '&access_token=' +
+            this._accessToken;
 
-        return axios.get(buildUrl)
+        return axios.get(buildUrl);
     }
 
     // function lists files
@@ -118,37 +121,37 @@ class GoogleDrive {
     listFiles(query) {
         let params = {
             pageSize: 1000,
-        }
+        };
 
         if (query) {
-            params = query
+            params = query;
         }
 
-        return this.drive.files.list(params)
+        return this.drive.files.list(params);
     }
 
     // function get files by id
     // docs: https://developers.google.com/drive/api/v3/reference/files/get
     getFiles(id) {
-        return this.drive.files.get({ fileId: id })
+        return this.drive.files.get({ fileId: id });
     }
 
     // function delete files by id
     // docs: https://developers.google.com/drive/api/v3/reference/files/delete
     deleteFiles(id) {
-        return this.drive.files.delete({ fileId: id })
+        return this.drive.files.delete({ fileId: id });
     }
 
     // function copy files by id
     // docs: https://developers.google.com/drive/api/v3/reference/files/copy
     copyFiles(query) {
-        return this.drive.files.copy(query)
+        return this.drive.files.copy(query);
     }
 
     // function empty trash
     // docs: https://developers.google.com/drive/api/v3/reference/files/emptyTrash
     emptyTrash() {
-        return this.drive.files.emptyTrash()
+        return this.drive.files.emptyTrash();
     }
 
     // function share file private by email
@@ -160,9 +163,9 @@ class GoogleDrive {
             requestBody: {
                 emailAddress: email,
                 role: 'reader',
-                type: 'user'
-            }
-        })
+                type: 'user',
+            },
+        });
     }
 
     // function share file to public
@@ -172,9 +175,9 @@ class GoogleDrive {
             fileId: id,
             requestBody: {
                 role: 'reader',
-                type: 'anyone'
-            }
-        })
+                type: 'anyone',
+            },
+        });
     }
 
     // function create new folder
@@ -183,9 +186,9 @@ class GoogleDrive {
             requestBody: {
                 mimeType: 'application/vnd.google-apps.folder',
                 name: name,
-                parents: parents ? parents : null
-            }
-        })
+                parents: parents ? parents : null,
+            },
+        });
     }
 
     // function upload files promise
@@ -193,54 +196,59 @@ class GoogleDrive {
         return this.drive.files.create({
             requestBody: {
                 name: name,
-                mimeType: mimeType
+                mimeType: mimeType,
             },
             media: {
                 mimeType: mimeType,
-                body: stream
+                body: stream,
             },
-        })
+        });
     }
 
     // function upload files with cli-progress
     async uploadFileProgress(name, stream, mimeType, fileSize) {
+        console.log('Upload Files: ' + name + ' (' + byteHuman(fileSize) + ')');
 
-        console.log('Upload Files: ' + name + ' (' + byteHuman(fileSize) + ')')
-
-        const bar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic)
-        bar.start(fileSize, 0)
+        const bar = new cliProgress.SingleBar(
+            {},
+            cliProgress.Presets.shades_classic,
+        );
+        bar.start(fileSize, 0);
 
         const res = await this.drive.files.create(
             {
                 requestBody: {
                     name: name,
-                    mimeType: mimeType
+                    mimeType: mimeType,
                 },
                 media: {
                     mimeType: mimeType,
-                    body: stream
+                    body: stream,
                 },
             },
             {
-                onUploadProgress: evt => {
-                    bar.update(evt.bytesRead)
-                }
-            }
-        )
+                onUploadProgress: (evt) => {
+                    bar.update(evt.bytesRead);
+                },
+            },
+        );
 
-        bar.stop()
-        return res
+        bar.stop();
+        return res;
     }
 
     // function download files
     downloadFile(id) {
-        return this.drive.files.get({
-            fileId: id,
-            alt: 'media'
-        }, {
-            responseType: 'stream'
-        })
+        return this.drive.files.get(
+            {
+                fileId: id,
+                alt: 'media',
+            },
+            {
+                responseType: 'stream',
+            },
+        );
     }
 }
 
-module.exports = GoogleDrive
+module.exports = GoogleDrive;
