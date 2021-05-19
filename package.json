@@ -24,7 +24,8 @@
     "test": "echo \"No test specified\""
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "private": false
 }
