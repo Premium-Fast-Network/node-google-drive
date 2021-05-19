@@ -1,26 +1,26 @@
 {
-    "name": "@premiumfastnet/google-drive",
-    "version": "1.9.1",
-    "main": "src/googledrive.js",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Premium-Fast-Network/node-google-drive.git"
-    },
-    "bugs": {
-        "url": "https://github.com/Premium-Fast-Network/node-google-drive/issues"
-    },
-    "homepage": "https://github.com/Premium-Fast-Network/node-google-drive#readme",
-    "author": "Premium Fast Network <cs@premiumfast.net>",
-    "license": "MIT",
-    "dependencies": {
-        "axios": "^0.21.1",
-        "cli-progress": "^3.8.2",
-        "googleapis": "^59.0.0",
-        "mime-types": "^2.1.27",
-        "pretty-bytes": "^5.4.1"
-    },
-    "scripts": {
-        "release": "np minor --branch master --no-release-draft",
-        "test": "echo \"No test specified\""
-    }
+  "name": "@premiumfastnet/google-drive",
+  "version": "1.9.1",
+  "main": "src/googledrive.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Premium-Fast-Network/node-google-drive.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Premium-Fast-Network/node-google-drive/issues"
+  },
+  "homepage": "https://github.com/Premium-Fast-Network/node-google-drive#readme",
+  "author": "Premium Fast Network <cs@premiumfast.net>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cli-progress": "^3.8.2",
+    "googleapis": "^59.0.0",
+    "mime-types": "^2.1.27",
+    "pretty-bytes": "^5.4.1"
+  },
+  "scripts": {
+    "release": "np minor --branch master --no-release-draft --no-yarn",
+    "test": "echo \"No test specified\""
+  }
 }
