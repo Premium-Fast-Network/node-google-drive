@@ -22,5 +22,9 @@
   "scripts": {
     "release": "np minor --branch master --no-release-draft --no-yarn",
     "test": "echo \"No test specified\""
-  }
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "private": false
 }
