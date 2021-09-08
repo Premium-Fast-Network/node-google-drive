@@ -81,14 +81,14 @@ class GoogleDrive {
     }
 
     // function manually refresh token using axios
-    // refreshToken() {
-    //     return axios.post(this.gdApiUrl.refreshToken, {
-    //         client_id: this.clientId,
-    //         client_secret: this.clientSecret,
-    //         refresh_token: this._refreshToken,
-    //         grant_type: 'refresh_token'
-    //     })
-    // }
+    refreshTokenManual() {
+        return axios.post(this.gdApiUrl.refreshToken, {
+            client_id: this.clientId,
+            client_secret: this.clientSecret,
+            refresh_token: this._refreshToken,
+            grant_type: 'refresh_token'
+        })
+    }
 
     // function refresh token from google oauth2Client
     refreshToken() {
