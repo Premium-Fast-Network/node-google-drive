@@ -13,8 +13,7 @@ jobs:
           node-version: '14.x'
           registry-url: 'https://registry.npmjs.org'
           scope: '@premiumfastnet'
-      - run: npm i -g np
       - run: npm ci
-      - run: npm run release
+      - run: npx np minor --branch master --no-release-draft --no-yarn
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
